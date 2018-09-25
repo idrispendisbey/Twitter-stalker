@@ -40,7 +40,7 @@ class TwitterInformer():
         else:
             self.accounts[account]=self.get_following(account)
             if save:
-                self.save()
+                self.save(backup = False)
     
     def add_accounts(self, accounts):
         check = 1
@@ -62,7 +62,7 @@ class TwitterInformer():
         time.sleep(self.sleep)
         return screen_names
         
-    def save(self):
+    def save(self, backup = True):
         self.backup()
         print("Saving accounts \n")
         with open(self.filename, "wb") as handle:
