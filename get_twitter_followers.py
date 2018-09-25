@@ -7,7 +7,7 @@
 import twitter, smtplib, pickle, json, datetime, os, time
 
 
-# In[9]:
+# In[39]:
 
 
 class TwitterInformer():
@@ -63,10 +63,13 @@ class TwitterInformer():
             print("Befriending:",account)
             self.api.CreateFriendship(screen_name=account, follow = False, retweets = False)
         print ("Getting accounts followed by {}\n".format(account))
-        following = self.api.GetFriends(screen_name=account)
-        screen_names = []
-        for user in following:
-            screen_names.append(user.screen_name)
+        try:
+            following = self.api.GetFriends(screen_name=account)
+            screen_names = []
+            for user in following:
+                screen_names.append(user.screen_name)
+        except:
+            print("Couldnt fetch account probably due to protection. {} needs to approve friendship request".format(account))
         time.sleep(self.sleep)
         return screen_names
         
@@ -148,30 +151,6 @@ class TwitterInformer():
         print (message)
         print ("\n-------\n")
         print ('Email sent!')
-
-
-# In[ ]:
-
-
-stalker.friends = []
-
-
-# In[32]:
-
-
-stalker.api.CreateFriendship(screen_name="growdigi", follow = False, retweets = False)
-
-
-# In[25]:
-
-
-stalker.api.GetFriends()
-
-
-# In[23]:
-
-
-stalker.add_account("growdigi")
 
 
 # In[ ]:
