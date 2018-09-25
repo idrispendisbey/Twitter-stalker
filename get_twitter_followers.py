@@ -32,7 +32,12 @@ class TwitterInformer():
         self.gmail_pass = config["gmail_pass"]
         self.recipient = config["recipient"]
         self.sleep = 5
+        self.get_friends()
         self.load()
+        
+    def get_friends(self):
+        print ("Fetching friends")
+        self.friends = [u.name for u in self.api.GetFriends()]
         
     def add_account(self, account, save = True):
         if account in self.accounts:
@@ -54,6 +59,9 @@ class TwitterInformer():
         return check
         
     def get_following(self, account):
+        if account not in self.friends:
+            print("Befriending:",account)
+            self.api.CreateFriendship(screen_name=account, follow = False, retweets = False)
         print ("Getting accounts followed by {}\n".format(account))
         following = self.api.GetFriends(screen_name=account)
         screen_names = []
@@ -140,6 +148,30 @@ class TwitterInformer():
         print (message)
         print ("\n-------\n")
         print ('Email sent!')
+
+
+# In[ ]:
+
+
+stalker.friends = []
+
+
+# In[32]:
+
+
+stalker.api.CreateFriendship(screen_name="growdigi", follow = False, retweets = False)
+
+
+# In[25]:
+
+
+stalker.api.GetFriends()
+
+
+# In[23]:
+
+
+stalker.add_account("growdigi")
 
 
 # In[ ]:
