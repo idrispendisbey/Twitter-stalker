@@ -1,0 +1,4 @@
+config.ini
+/backup
+/.ipynb_checkpoints
+*.ipynb
