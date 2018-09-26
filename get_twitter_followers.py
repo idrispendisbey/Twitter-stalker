@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[5]:
+# In[ ]:
 
 
 import twitter, smtplib, pickle, json, datetime, os, time
@@ -13,7 +13,7 @@ import twitter, smtplib, pickle, json, datetime, os, time
 class TwitterInformer():
     def __init__(self):
         self.accounts = {}
-        
+        self.start = time.time()
         with open('config.env', 'r') as file:  
             config = json.load(file)
             
@@ -185,7 +185,7 @@ class TwitterInformer():
             text = "No new friends"
 #         print("Text:")
 #         print(text)
-
+        text += "\nTook {:.2f} seconds".format(time.time()-self.start)
         message = 'From: {}\nTo: {}\nSubject: {}\n\n{}'.format(self.gmail, self.recipient, subject, text)
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     
     stalker = TwitterInformer()
     p1 = ["JihanWu", "rogerkver"]
-    p2 = ["marsmensch", "notsofast", "growdigi", "needacoin", "cryptomocho"]
+    p2 = ["marsmensch", "notsofast", "growdigi", "needacoin", "cryptomocho", "bitcoin_dad", "jiucrypto", "LowCapWizard"]
     p3 = ["cryptorangutang", "SalvaZenN", "CryptoCoyote", "SalvaZenN", "crypToBanger","Crypto_Twitt_r"]
     checklist = p1+p2+p3
     check = stalker.add_accounts(checklist)
