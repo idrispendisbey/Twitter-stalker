@@ -1,13 +1,13 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import twitter, smtplib, pickle, json, datetime, os, time
 
 
-# In[ ]:
+# In[1]:
 
 
 class TwitterInformer():
@@ -33,6 +33,7 @@ class TwitterInformer():
         self.recipient = config["recipient"]
         self.sleep = 5
         self.requested = []
+        self.recent=[]
         self.load()
         self.get_friends()
 
@@ -53,19 +54,17 @@ class TwitterInformer():
             following = self.get_following(account)
             if following:
                 self.accounts[account]= following
+                self.recent.append(account)
             if save:
                 self.save(backup = False)
     
     def add_accounts(self, accounts):
-        check = 1
         for account in accounts:
             if account not in stalker.accounts and account not in self.requested:
                 print(account)
                 stalker.add_account(account)   
                 check = 0
-        if not check:
-            self.save()
-        return check
+        self.save()
         
     def get_following(self, account):
         
@@ -149,6 +148,8 @@ class TwitterInformer():
         print("Updating following lists..\n")
         new = {}
         for account in self.accounts.keys():
+            if account in self.recent:
+                continue
             friends = self.get_following(account)
             for friend in friends:
                 if friend not in self.accounts[account]:
@@ -203,13 +204,12 @@ class TwitterInformer():
 
 
 if __name__ == '__main__':
-    
+    print(datetime.datetime.now())
     stalker = TwitterInformer()
     p1 = ["JihanWu", "rogerkver"]
     p2 = ["marsmensch", "notsofast", "growdigi", "needacoin", "cryptomocho", "bitcoin_dad", "jiucrypto", "LowCapWizard"]
     p3 = ["cryptorangutang", "SalvaZenN", "CryptoCoyote", "SalvaZenN", "crypToBanger","Crypto_Twitt_r"]
     checklist = p1+p2+p3
-    check = stalker.add_accounts(checklist)
-    if check:
-        stalker.update()
+    stalker.add_accounts(checklist)
+    stalker.update()
 
