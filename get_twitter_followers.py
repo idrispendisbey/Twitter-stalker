@@ -31,7 +31,7 @@ class TwitterInformer():
         self.gmail = config["gmail"]
         self.gmail_pass = config["gmail_pass"]
         self.recipient = config["recipient"]
-        self.sleep = 5
+        self.sleep = 300
         self.requested = []
         self.recent=[]
         self.load()
