@@ -208,7 +208,7 @@ if __name__ == '__main__':
     stalker = TwitterInformer()
     p1 = ["JihanWu", "rogerkver"]
     p2 = ["marsmensch", "notsofast", "growdigi", "needacoin", "cryptomocho", "bitcoin_dad", "jiucrypto", "LowCapWizard"]
-    p3 = ["cryptorangutang", "SalvaZenN", "CryptoCoyote", "SalvaZenN", "crypToBanger","Crypto_Twitt_r"]
+    p3 = ["cryptorangutang", "SalvaZenN", "CryptoCoyote", "SalvaZenN", "crypToBanger","Crypto_Twitt_r","cryptomaestro","CryptoCoyote"]
     checklist = p1+p2+p3
     stalker.add_accounts(checklist)
     stalker.update()
